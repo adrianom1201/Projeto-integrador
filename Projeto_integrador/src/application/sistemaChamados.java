@@ -48,6 +48,31 @@ public class sistemaChamados {
 	}
 	
 	public static void pendentesChamados() {
+		if (listC.isEmpty()) {
+			System.out.println("Não há chamados pendentes. Gostaria de abrir um chamado agora? (S/N) ");
+			char opt = sc.next().charAt(0);
+			while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
+				System.out.print("Opção inválida, tente novamente (S/N) ");
+				opt = sc.next().charAt(0);
+				sc.nextLine();
+			}
+			if (Character.toUpperCase(opt) == 'S') {
+				abrirChamado();
+			}
+			else {
+				abrirMenu();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}
