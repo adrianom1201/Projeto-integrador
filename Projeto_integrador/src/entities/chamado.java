@@ -54,7 +54,28 @@ public void setStatus(int status) {
 }
 
 
-
+public String toString () {
+	String chamadoP;
+	
+	if (tecnico == null) {
+		chamadoP = "#" + numero + " CHAMADO\n" +
+	"solicitado por: " + solicitante\n +
+	"Descrição: " + problema + "\n" +
+	 "Status: "+ status + "\n" +
+	"AINDA NÃO HÁ TÉCNICO ATRIBUÍDO.";
+		
+	return chamadoP;	
+	}
+	
+		chamadoP = "#" + numero + " CHAMADO\n" +
+	"solicitado por: " + solicitante\n +
+	"Descrição: " + problema + "\n" +
+	 "Status: "+ status + "\n" +
+	"Responsável: " + tecnico;
+	
+	return chamadoP
+	
+}
 
 
 

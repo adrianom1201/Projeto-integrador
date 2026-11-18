@@ -33,7 +33,7 @@ public class sistemaChamados {
 				String solicitante = sc.nextLine();
 				System.out.print("Descreva o problema: ");					String problema = sc.nextLine();
 	
-				listC.add(new chamado(solicitante, numero, problema, chamado.AGUARDAND0));
+				listC.add(new chamado(solicitante, numero, problema, chamado.AGUARDANDO));
 				System.out.println("Gostaria de abrir um novo chamado? (S/N) ");
 				opt = sc.next().charAt(0);
 				sc.nextLine();
@@ -49,7 +49,7 @@ public class sistemaChamados {
 	
 	public static void pendentesChamados() {
 		if (listC.isEmpty()) {
-			System.out.println("Não há chamados pendentes. Gostaria de abrir um chamado agora? (S/N) ");
+			System.out.print("Não há chamados pendentes. Gostaria de abrir um chamado agora? (S ou N para retornar ao menu) ");
 			char opt = sc.next().charAt(0);
 			while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
 				System.out.print("Opção inválida, tente novamente (S/N) ");
@@ -58,24 +58,78 @@ public class sistemaChamados {
 			}
 			if (Character.toUpperCase(opt) == 'S') {
 				abrirChamado();
+				
 			}
 			else {
 				abrirMenu();
+			
 			}
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		else {
+			for (chamado dados : listC) {
+				System.out.println(dados.toString());
+			}
+			System.out.print("Gostaria de delegar um chamado para si? (S/N) ");
+			char opt = sc.next().charAt(0);
+			while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
+				System.out.print("Opção inválida, tente novamente (S/N) ");
+				opt = sc.next().charAt(0);
+				sc.nextLine();
+			}
+			if (Character.toUpperCase(opt) == 'S') {
+				System.out.print("Digite o número do chamado: ");
+				int numero = sc.nextInt();
+				sc.nextLine();
+				boolean encontrado = false;
+				
+				while (encontrado == false) {
+					for (chamado dados : listC) {
+						if (dados.getNumero() == numero) {
+							encontrado = true;
+							break;
+						}
+						
+					}	
+					
+						if (encontrado == false) {
+						
+							System.out.print("Chamado não encontrado, por favor digite novamente: ");
+							numero = sc.nextInt();
+							sc.nextLine();
+						}	
+					if (encontrado == true) {
+						for (chamado dados : listC) {
+							if (dados.getNumero() == numero) {
+					
+						
+								if (dados.getTecnico() == null) {
+									System.out.print("Digite seu nome: ");
+									dados.setTecnico(sc.nextLine());
+									System.out.println("TÉCNICO ATRIBUIDO COM SUCESSO!");
+									System.out.println(dados.toString());
+								break;
+								}
+								else {
+									System.out.println("Este chamado já possui técnico atribuido!");
+								break;
+								}
+							}
+					
+						}
+					}
+				}
+				abrirMenu();
+			}
+			}
+	
+	
+	
+	
 	}
+	
+	
+	
+	
 	
 	
 	
@@ -96,7 +150,8 @@ public class sistemaChamados {
 			abrirChamado();
 			break;
 		case 2:
-			
+			pendentesChamados();
+			break;
 		case 3:
 			
 		case 0:
