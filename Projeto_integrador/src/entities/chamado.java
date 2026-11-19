@@ -59,22 +59,21 @@ public String toString () {
 	
 	if (tecnico == null) {
 		chamadoP = "#" + numero + " CHAMADO\n" +
-	"solicitado por: " + solicitante\n +
+	"solicitado por: " + solicitante + "\n" +
 	"Descrição: " + problema + "\n" +
 	 "Status: "+ status + "\n" +
-	"AINDA NÃO HÁ TÉCNICO ATRIBUÍDO.";
+	"AINDA NÃO HÁ TÉCNICO ATRIBUÍDO. \n";
 		
 	return chamadoP;	
 	}
 	
 		chamadoP = "#" + numero + " CHAMADO\n" +
-	"solicitado por: " + solicitante\n +
+	"solicitado por: " + solicitante + "\n" +
 	"Descrição: " + problema + "\n" +
 	 "Status: "+ status + "\n" +
-	"Responsável: " + tecnico;
+	"Responsável: " + tecnico + "\n";
 	
-	return chamadoP
-	
+	return chamadoP;
 }
 
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import entities.Chamado;
+import entities.chamado;
 
 public class sistemaChamados {
 	
@@ -29,12 +29,13 @@ public class sistemaChamados {
 			
 				numero ++;
 				System.out.println();
-				System.out.print("Digite o seu nome");
+				System.out.print("Digite o seu nome: ");
 				String solicitante = sc.nextLine();
-				System.out.print("Descreva o problema: ");					String problema = sc.nextLine();
+				System.out.print("Descreva o problema: ");					
+				String problema = sc.nextLine();
 	
 				listC.add(new chamado(solicitante, numero, problema, chamado.AGUARDANDO));
-				System.out.println("Gostaria de abrir um novo chamado? (S/N) ");
+				System.out.print("Gostaria de abrir um novo chamado? (S/N) ");
 				opt = sc.next().charAt(0);
 				sc.nextLine();
 				while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
@@ -106,6 +107,7 @@ public class sistemaChamados {
 									System.out.print("Digite seu nome: ");
 									dados.setTecnico(sc.nextLine());
 									System.out.println("TÉCNICO ATRIBUIDO COM SUCESSO!");
+									dados.setStatus(chamado.EM_PROGRESSO);
 									System.out.println(dados.toString());
 								break;
 								}
@@ -121,13 +123,13 @@ public class sistemaChamados {
 				abrirMenu();
 			}
 			}
-	
-	
-	
-	
 	}
 	
-	
+	public static void atribuirTecnico() {
+		
+		
+		
+	}
 	
 	
 	
@@ -139,12 +141,18 @@ public class sistemaChamados {
 		System.out.println();
 		System.out.println("1 - Abrir chamado");
 		System.out.println("2 - Chamados pendentes");
-		System.out.println("3 - Chamados concluídos");
+		System.out.println("3 - Atribuir técnico");
+		System.out.println("4 - Chamados concluídos");
+		System.out.println("5 - Encerrar chamado");
 		System.out.println("0 - Encerrar o acesso");
+		
+		System.out.println();
 		
 		System.out.print("Digite o número da opção desejada: ");
 		option = sc.nextInt();
 		sc.nextLine();
+		System.out.println();
+		
 		switch (option) {
 		case 1: 
 			abrirChamado();
@@ -154,10 +162,18 @@ public class sistemaChamados {
 			break;
 		case 3:
 			
+		case 4:
+			
+		case 5:
+			
 		case 0:
-		System.out.println("Sessão encerrada.");
+			System.out.println("Sessão encerrada.");
 		
-		break;
+			break;
+		
+		default:
+			System.out.println("Entrada inválida");
+			break;
 		}
 	}
 	
@@ -170,13 +186,12 @@ public class sistemaChamados {
 		
 	}	
 		
+	
 		
 		
 		
 		
-		
-		
-		
+	
 		
 	}
 	
