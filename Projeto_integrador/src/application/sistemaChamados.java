@@ -126,6 +126,64 @@ public class sistemaChamados {
 	}
 	
 	public static void atribuirTecnico() {
+		if (listC.isEmpty()) {
+			System.out.println("Não há chamados pendentes!");
+			abrirMenu();
+		}
+		else {
+			boolean encontrado = false;
+			for (chamado dados : listC) {
+				if (dados.getTecnico() == null);
+				encontrado  = true;
+				break;
+			}
+			if (encontrado == true) {
+				System.out.println("Chamados sem técnico atribuido:");
+				for (chamado dados : listC) {
+					if (dados.getTecnico() == null) {
+						System.out.println(dados.toString());
+					}
+				}
+				char valid = 'S';
+				while (valid == 'S') {
+					System.out.print("Digite o número do chamado que deseja atribuir para si: ");	
+					int numero = sc.nextInt();
+					sc.nextLine();
+					boolean finder = false;
+					for (chamado dados : listC) {
+						if (numero == dados.getNumero() && dados.getTecnico() == null) {
+						finder = true;
+						}
+					}
+				
+				
+					if (finder == true) {
+						for (chamado dados : listC) {
+							if (dados.getNumero() == numero) { 
+								System.out.print("Digite seu nome: ");
+								dados.setTecnico(sc.nextLine());
+								dados.setStatus(chamado.EM_PROGRESSO);
+								break;
+							}		
+						}
+					} else {
+						System.out.println("Número inválido ou técnico já atribuido!");
+						System.out.println("Gostaria de tentar novamente? (S/N) ");
+						valid = validacaoSN();
+					}
+				}
+				abrirMenu();
+			
+				} else {
+					System.out.println("Não há chamados aguardando atribuição!");
+					abrirMenu();
+				}
+			
+			
+		}
+			
+		
+		
 		
 		
 		
@@ -161,7 +219,8 @@ public class sistemaChamados {
 			pendentesChamados();
 			break;
 		case 3:
-			
+			atribuirTecnico();
+			break;
 		case 4:
 			
 		case 5:
@@ -194,6 +253,16 @@ public class sistemaChamados {
 	
 		
 	}
-	
+	public static char validacaoSN() {
+		char valid = sc.next().charAt(0);
+		while (Character.toUpperCase(valid) != 'N' && Character.toUpperCase(valid) != 'S') {
+			System.out.println("Entrada inválida, por favor, digite novamente: ");
+			valid = sc.next().charAt(0);
+		
+		
+		
+		}
+		return Character.toUpperCase(valid);		
+	}
 	
 }
