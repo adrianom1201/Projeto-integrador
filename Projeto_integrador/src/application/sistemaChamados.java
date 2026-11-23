@@ -17,13 +17,9 @@ public class sistemaChamados {
 	public static void abrirChamado() {
 		System.out.println("===========ABERTURA DE CHAMADO===========");
 		System.out.print("Deseja continuar? (S/N) ");
-		char opt = sc.next().charAt(0);
+		char opt = validacaoSN();
 		sc.nextLine();
-		while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
-			System.out.print("Opção inválida, tente novamente (S/N) ");
-			opt = sc.next().charAt(0);
-			sc.nextLine();
-		}	
+		
 		if (Character.toUpperCase(opt) == 'S') {
 			while (Character.toUpperCase(opt) == 'S') {
 			
@@ -36,13 +32,9 @@ public class sistemaChamados {
 	
 				listC.add(new chamado(solicitante, numero, problema, chamado.AGUARDANDO));
 				System.out.print("Gostaria de abrir um novo chamado? (S/N) ");
-				opt = sc.next().charAt(0);
+				opt = validacaoSN();
 				sc.nextLine();
-				while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
-					System.out.print("Opção inválida, tente novamente (S/N) ");
-					opt = sc.next().charAt(0);
-					sc.nextLine();
-				}
+				
 			}
 		}
 			abrirMenu();	
@@ -51,12 +43,7 @@ public class sistemaChamados {
 	public static void pendentesChamados() {
 		if (listC.isEmpty()) {
 			System.out.print("Não há chamados pendentes. Gostaria de abrir um chamado agora? (S ou N para retornar ao menu) ");
-			char opt = sc.next().charAt(0);
-			while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
-				System.out.print("Opção inválida, tente novamente (S/N) ");
-				opt = sc.next().charAt(0);
-				sc.nextLine();
-			}
+			char opt = validacaoSN();
 			if (Character.toUpperCase(opt) == 'S') {
 				abrirChamado();
 				
@@ -71,12 +58,7 @@ public class sistemaChamados {
 				System.out.println(dados.toString());
 			}
 			System.out.print("Gostaria de delegar um chamado para si? (S/N) ");
-			char opt = sc.next().charAt(0);
-			while (Character.toUpperCase(opt) != 'S' && Character.toUpperCase(opt) != 'N') {
-				System.out.print("Opção inválida, tente novamente (S/N) ");
-				opt = sc.next().charAt(0);
-				sc.nextLine();
-			}
+			char opt = validacaoSN();
 			if (Character.toUpperCase(opt) == 'S') {
 				System.out.print("Digite o número do chamado: ");
 				int numero = sc.nextInt();
@@ -129,6 +111,7 @@ public class sistemaChamados {
 		if (listC.isEmpty()) {
 			System.out.println("Não há chamados pendentes!");
 			abrirMenu();
+			return;
 		}
 		else {
 			boolean encontrado = false;
@@ -182,15 +165,87 @@ public class sistemaChamados {
 			
 		}
 			
-		
-		
-		
-		
-		
 	}
 	
+	public static void chamadosConcluidos() {
+		if (listC.isEmpty()) {
+			System.out.println("Não há chamados para mostrar!");
+			abrirMenu();
+			return;
+		} else {
+			
+			boolean tester = false;
+			for (chamado dados : listC) {
+				if (dados.getStatus() == chamado.CONCLUÍDO) {
+					tester = true;
+					break;
+				}
+			}
+			if (tester == true) {
+				System.out.println("Chamados concluídos: ");
+				for (chamado dados : listC) {
+					if (dados.getStatus() == chamado.CONCLUÍDO) {
+						System.out.println(dados.toString());
+					}
+				}
+			} else {
+				System.out.println("Não há chamados concluídos!");
+			}
+			abrirMenu();	
+			}
+	}
 	
-	
+	public static void encerrarChamado() {
+		if (listC.isEmpty()) {
+			System.out.println("Não há chamados para encerrar!");
+			abrirMenu();
+			return;
+		} else {
+			boolean tester = false;
+			for (chamado dados : listC) {
+				if (dados.getStatus() == chamado.EM_PROGRESSO) {
+					tester = true;
+					break;
+				}
+			}
+			if (tester == true) {
+				for (chamado dados : listC) {
+					if (dados.getStatus() == chamado.EM_PROGRESSO) {
+						System.out.println(dados.toString());
+					}
+				}
+				System.out.println("Digite o número do chamado que deseja encerrar: ");
+				int opt = sc.nextInt();
+				sc.nextLine();
+				boolean finder = false;
+				while (finder == false) {
+					for (chamado dados : listC) {
+						if (dados.getNumero() == opt) {
+							finder = true;
+						}
+					}
+					if (finder == true) {
+						for (chamado dados : listC) {
+							if (opt == dados.getNumero()) {
+								dados.setStatus(chamado.CONCLUÍDO);
+								System.out.println("Chamado encerrado com sucesso! ");
+								System.out.println(dados.toString());
+								break;
+							}
+						}
+					} else {
+						System.out.print("Número do chamado inválido, por favor digite novamente: ");
+						opt = sc.nextInt();
+						sc.nextLine();
+					}
+				}
+			} else {
+				System.out.println("Não há chamados para finalizar!");
+			}
+		  }
+		abrirMenu();	
+		
+	}
 	
 	
 	
@@ -222,9 +277,9 @@ public class sistemaChamados {
 			atribuirTecnico();
 			break;
 		case 4:
-			
+			chamadosConcluidos();
 		case 5:
-			
+			encerrarChamado();
 		case 0:
 			System.out.println("Sessão encerrada.");
 		
