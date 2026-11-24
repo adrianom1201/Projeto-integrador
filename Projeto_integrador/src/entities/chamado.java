@@ -56,12 +56,28 @@ public void setStatus(int status) {
 
 public String toString () {
 	String chamadoP;
+	String nomeStatus;
+	
+	switch (status) {
+	case AGUARDANDO:
+		nomeStatus = "Aguardando";
+		break;
+	case EM_PROGRESSO:
+		nomeStatus = "Em progresso";
+		break;
+	case CONCLUÍDO:
+		nomeStatus = "Concluído";
+		break;
+	default:
+		nomeStatus = "Desconhecido";
+		break;
+	}
 	
 	if (tecnico == null) {
 		chamadoP = "#" + numero + " CHAMADO\n" +
 	"solicitado por: " + solicitante + "\n" +
 	"Descrição: " + problema + "\n" +
-	 "Status: "+ status + "\n" +
+	 "Status: "+ nomeStatus + "\n" +
 	"AINDA NÃO HÁ TÉCNICO ATRIBUÍDO. \n";
 		
 	return chamadoP;	
@@ -70,7 +86,7 @@ public String toString () {
 		chamadoP = "#" + numero + " CHAMADO\n" +
 	"solicitado por: " + solicitante + "\n" +
 	"Descrição: " + problema + "\n" +
-	 "Status: "+ status + "\n" +
+	 "Status: "+ nomeStatus + "\n" +
 	"Responsável: " + tecnico + "\n";
 	
 	return chamadoP;
