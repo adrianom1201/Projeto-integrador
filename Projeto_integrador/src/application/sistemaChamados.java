@@ -41,6 +41,16 @@ public class sistemaChamados {
 	}
 	
 	public static void pendentesChamados() {
+		
+		boolean temPendente = false;
+		for (chamado dados : listC) {
+		    if (dados.getStatus() != chamado.CONCLUÍDO) {
+		        temPendente = true;
+		        break;
+		    }
+		}
+		
+		
 		if (listC.isEmpty()) {
 			System.out.print("Não há chamados pendentes. Gostaria de abrir um chamado agora? (S ou N para retornar ao menu) ");
 			char opt = validacaoSN();
@@ -52,10 +62,17 @@ public class sistemaChamados {
 				abrirMenu();
 			
 			}
-		}
+		} else if (temPendente == false) {
+			System.out.println("Não há chamados pendentes, todos já foram concluídos!");
+		    abrirMenu();
+		    return;
+		}	
+		
 		else {
 			for (chamado dados : listC) {
+				if (dados.getStatus() == chamado.AGUARDANDO || dados.getStatus() == chamado.EM_PROGRESSO) {
 				System.out.println(dados.toString());
+				}
 			}
 			System.out.print("Gostaria de delegar um chamado para si? (S/N) ");
 			char opt = validacaoSN();
@@ -144,9 +161,11 @@ public class sistemaChamados {
 					if (finder == true) {
 						for (chamado dados : listC) {
 							if (dados.getNumero() == numero) { 
+								valid = 'N';
 								System.out.print("Digite seu nome: ");
 								dados.setTecnico(sc.nextLine());
 								dados.setStatus(chamado.EM_PROGRESSO);
+								
 								break;
 							}		
 						}
