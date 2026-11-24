@@ -116,9 +116,10 @@ public class sistemaChamados {
 		else {
 			boolean encontrado = false;
 			for (chamado dados : listC) {
-				if (dados.getTecnico() == null);
+				if (dados.getTecnico() == null) {
 				encontrado  = true;
 				break;
+				}
 			}
 			if (encontrado == true) {
 				System.out.println("Chamados sem técnico atribuido:");
@@ -220,7 +221,7 @@ public class sistemaChamados {
 				boolean finder = false;
 				while (finder == false) {
 					for (chamado dados : listC) {
-						if (dados.getNumero() == opt) {
+						if (dados.getNumero() == opt && dados.getStatus() == chamado.EM_PROGRESSO) {
 							finder = true;
 						}
 					}
@@ -278,8 +279,10 @@ public class sistemaChamados {
 			break;
 		case 4:
 			chamadosConcluidos();
+			break;
 		case 5:
 			encerrarChamado();
+			break;
 		case 0:
 			System.out.println("Sessão encerrada.");
 		
@@ -302,7 +305,7 @@ public class sistemaChamados {
 		
 	
 		
-		
+	sc.close();	
 		
 		
 	
